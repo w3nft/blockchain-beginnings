@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+    <base href="/" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="web3_signature_art" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- Favicon -->
+    <!-- SEO Meta Tags -->
+    <title>Web3 Signature Art - Blockchain Digital Art</title>
+    <meta
+      name="description"
+      content="Experience the convergence of art and blockchain with Web3 Signature Art. Dive into a collection of decentralized digital masterpieces on the blockchain."
+    />
+    <meta
+      name="keywords"
+      content="Web3, Signature Art, Blockchain Art, Digital Art, Crypto Art, Decentralized Art"
+    />
+    <meta name="author" content="Your Name/Company Name" />
+
+    <!-- Social Media / OpenGraph Tags -->
+    <meta
+      property="og:title"
+      content="Web3 Signature Art - Blockchain Digital Art"
+    />
+    <meta
+      property="og:description"
+      content="Experience the convergence of art and blockchain with Web3 Signature Art. Dive into a collection of decentralized digital masterpieces on the blockchain."
+    />
+    <meta property="og:image" content="URL_TO_YOUR_IMAGE" />
+    <meta property="og:url" content="YOUR_WEBSITE_URL" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Web3 Signature Art" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Web3 Signature Art - Blockchain Digital Art"
+    />
+    <meta
+      name="twitter:description"
+      content="Experience the convergence of art and blockchain with Web3 Signature Art. Dive into a collection of decentralized digital masterpieces on the blockchain."
+    />
+    <meta name="twitter:image" content="URL_TO_YOUR_IMAGE" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="PATH_TO_YOUR_FAVICON.ico" />
+
+    <title>web3_signature_art</title>
+    <link rel="manifest" href="manifest.json" />
+
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      const serviceWorkerVersion = "411565014";
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+
+    <script>
+      // Log whether MetaMask is installed.
+      console.log('MetaMask Installed:', typeof ethereum !== 'undefined');
+
+      // Global variable to hold the authorized account
+      let authorizedAccount = null;
+
+      // Function to request access to user accounts.
+      function getAccounts(successCallback, errorCallback) {
+        console.log(
+          'getAccounts function called with callbacks',
+          successCallback,
+          errorCallback
+        );
+        if (typeof ethereum !== 'undefined') {
+          ethereum
+            .request({ method: 'eth_requestAccounts' })
+            .then((accounts) => {
+              authorizedAccount = accounts[0]; // Assuming the user's primary account is the first one.
+              successCallback(authorizedAccount);
+            })
+            .catch((err) => {
+              console.error('Error getting accounts:', err);
+              errorCallback(err.toString());
+            });
+        } else {
+          errorCallback('Ethereum object not found');
+        }
+      }
+
+      // Function to send a transaction using MetaMask.
+      function sendTransactionToMetaMask(jsonData, onSuccess, onError) {
+        let proceedWithTransaction = (account) => {
+          let data = JSON.parse(jsonData);
+
+          console.log(
+            'sendTransactionToMetaMask function called with data:',
+            data
+          );
+
+          data.from = account; // Set the 'from' field
+
+          if (!data.to || !data.data || !data.value) {
+            console.error('Data is missing necessary fields');
+            return;
+          }
+
+          if (typeof ethereum !== 'undefined') {
+            return ethereum
+              .request({
+                method: 'eth_sendTransaction',
+                params: [data],
+              })
+              .then((result) => {
+                onSuccess(data.from);
+              })
+              .catch((error) => {
+                console.error('Error sending transaction:', error);
+                onError(error.message);
+              });
+          }
+
+          return Promise.reject('Ethereum object not found');
+        };
+
+        // Check if account is already authorized
+        if (authorizedAccount) {
+          return proceedWithTransaction(authorizedAccount);
+        } else {
+          return new Promise((resolve, reject) => {
+            getAccounts(
+              (account) => {
+                resolve(proceedWithTransaction(account));
+              },
+              (err) => {
+                console.error("Couldn't authorize account:", err);
+                reject(err);
+              }
+            );
+          });
+        }
+      }
+
+      // Optional: Function to listen for account changes in MetaMask.
+      function setupMetaMaskListeners() {
+        if (typeof ethereum !== 'undefined') {
+          ethereum.on('accountsChanged', function (accounts) {
+            console.log('MetaMask accounts changed:', accounts);
+            // Here you can handle account changes, for instance, update the UI.
+          });
+
+          ethereum.on('chainChanged', function (chainId) {
+            console.log('MetaMask chain changed:', chainId);
+            // Here you can handle chain changes, like network switches.
+          });
+        }
+      }
+
+      // Automatically set up listeners when the script runs.
+      setupMetaMaskListeners();
+    </script>
+  </head>
+  <body>
+    <script>
+      window.addEventListener('load', function (ev) {
+        // Download main.dart.js
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: function (engineInitializer) {
+            engineInitializer.initializeEngine().then(function (appRunner) {
+              appRunner.runApp();
+            });
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

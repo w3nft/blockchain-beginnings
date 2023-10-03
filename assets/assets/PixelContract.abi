@@ -1,0 +1,285 @@
+[
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint32",
+				"name": "id",
+				"type": "uint32"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint32",
+				"name": "colorValue",
+				"type": "uint32"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "nftLink",
+				"type": "string"
+			}
+		],
+		"name": "PixelOwnershipChanged",
+		"type": "event"
+	},
+	{
+		"inputs": [],
+		"name": "setLuckyNftSoldPixels",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "setLuckyPixels",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "id",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "colorValue",
+				"type": "uint32"
+			},
+			{
+				"internalType": "string",
+				"name": "nftLink",
+				"type": "string"
+			}
+		],
+		"name": "setPixelOwnershipById",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllPixels",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint32",
+						"name": "id",
+						"type": "uint32"
+					},
+					{
+						"internalType": "uint32",
+						"name": "colorValue",
+						"type": "uint32"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "nftLink",
+						"type": "string"
+					}
+				],
+				"internalType": "struct PixelContract.Pixel[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "id",
+				"type": "uint32"
+			}
+		],
+		"name": "getPixelOwnershipById",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "luckyNftSoldPixels",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "id",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "colorValue",
+				"type": "uint32"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "nftLink",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "luckyPixels",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "id",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "colorValue",
+				"type": "uint32"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "nftLink",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "PIXEL_PRICE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			}
+		],
+		"name": "pixels",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "id",
+				"type": "uint32"
+			},
+			{
+				"internalType": "uint32",
+				"name": "colorValue",
+				"type": "uint32"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "nftLink",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalSoldPixels",
+		"outputs": [
+			{
+				"internalType": "uint32",
+				"name": "",
+				"type": "uint32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
